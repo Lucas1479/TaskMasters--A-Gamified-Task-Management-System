@@ -758,7 +758,8 @@ const TasksPage = () => {
     >
       <Navbar />
       <div className="max-w-[95%] mx-auto py-4 space-y-4">
-        <div className="flex justify-between items-center">
+        {/* Header section - responsive */}
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
           <h1 className="text-2xl font-bold text-gray-800">My Tasks</h1>
 
           <button
@@ -767,13 +768,14 @@ const TasksPage = () => {
               setCreateSlotIndex(-1);
               setShowForm(true);
             }}
-            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors duration-200"
+            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors duration-200 w-full sm:w-auto"
             disabled={loadingAny}
           >
             Create Task
           </button>
         </div>
 
+        {/* Error/Loading/Success messages */}
         {errorAny && (
           <div className="text-red-400 bg-black bg-opacity-50 p-2 rounded">
             {errorAny}
@@ -818,16 +820,14 @@ const TasksPage = () => {
           }
         />
 
-        <div className="flex gap-4 relative">
-          {/* Left: Task slot area */}
-          <div
-            className={`transition-all duration-300 ease-in-out ${
-              isExpanded ? "w-1/2" : "w-3/4"
-            }`}
-          >
-            <div className="grid grid-cols-2 gap-4">
-              {" "}
-              {/* Change back to grid-cols-2 to achieve horizontal arrangement */}
+        {/* Main content area - responsive layout */}
+        <div className="flex flex-col lg:flex-row gap-4 relative">
+          {/* Task slot area - responsive */}
+          <div className={`transition-all duration-300 ease-in-out w-full ${
+            isExpanded ? "lg:w-1/2" : "lg:w-3/4"
+          }`}>
+            {/* Mobile: Single column, Desktop: Two columns */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <DailyTaskPanel
                 tasks={tasks}
                 user={user}
@@ -873,12 +873,10 @@ const TasksPage = () => {
             </div>
           </div>
 
-          {/* Right: Task warehouse with adjustable width */}
-          <div
-            className={`transition-all duration-300 ease-in-out ${
-              isExpanded ? "w-1/2" : "w-1/4"
-            }`}
-          >
+          {/* Task repository with adjustable width - responsive */}
+          <div className={`transition-all duration-300 ease-in-out w-full ${
+            isExpanded ? "lg:w-1/2" : "lg:w-1/4"
+          }`}>
             <RepositoryPanel
               tasks={tasks}
               cards={cards}

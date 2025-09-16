@@ -527,6 +527,7 @@ const DungeonExplorer = ({ userStats, onGoldUpdate, gold  }) => {
 
   // Start exploration
   const startExploration = async () => {
+    setCurrentHp(userStats.baseStats.hp);
     setLogs([]);
     setSummary(null);
     setAccumulatedDrops({ gold: 0, exp: 0, items: [], cards: [] });
@@ -543,19 +544,9 @@ const DungeonExplorer = ({ userStats, onGoldUpdate, gold  }) => {
         setCurrentFloor(initialFloor);
       }
       
-       if (enter.stats) {
-        const newStats = {
-          hp: enter.stats.hp || 100,
-          attack: enter.stats.attack || 10,
-          defense: enter.stats.defense || 5,
-          magicPower: userStats.baseStats.magicPower || 0,
-          speed: userStats.baseStats.speed || 0,
-          critRate: userStats.baseStats.critRate || 5,
-          evasion: userStats.baseStats.evasion || 0
-        };
-        setPlayerStats(newStats);
-        setCurrentHp(newStats.hp);
-      }
+       const effective = userStats.baseStats;
+       setPlayerStats(prev => ({ ...prev, ...effective }));
+       setCurrentHp(effective.hp);
       // Add entry log with floor information
       setLogs([
         `✅ Entered: ${enter.dungeon.name}`,

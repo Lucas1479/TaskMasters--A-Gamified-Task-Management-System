@@ -282,7 +282,6 @@ const CombatSystem = ({
     return effects;
   };
    const getPlayerAvatar = () => {
-  // 优先使用 userStats，备用 userInfo
         const userData = userInfo;
         
         if (userData?.images && userData?.gender) {
