@@ -1,6 +1,7 @@
 // src/pages/TasksPage/index.js
 import React, { useState, useEffect, useContext } from "react";
 import { Navbar } from "../../components";
+import { AiTaskModal } from "../../components/modal";
 import { CreateTaskModal } from "../../components";
 import AuthContext from "../../context/AuthContext";
 import { NewTaskCard } from "../../components/task/NewTaskCard";
@@ -48,6 +49,7 @@ import {
 
 const TasksPage = () => {
   const { user } = useContext(AuthContext);
+  const [showAiModal, setShowAiModal] = useState(false);
   const { showSuccess, showError } = useToast();
   const [tasks, setTasks] = useState([]);
   const [cards, setCards] = useState([]);
@@ -762,17 +764,27 @@ const TasksPage = () => {
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
           <h1 className="text-2xl font-bold text-gray-800">My Tasks</h1>
 
-          <button
-            onClick={() => {
-              setCreateSlotType("short");
-              setCreateSlotIndex(-1);
-              setShowForm(true);
-            }}
-            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors duration-200 w-full sm:w-auto"
-            disabled={loadingAny}
-          >
-            Create Task
-          </button>
+          <div className="flex gap-2 w-full sm:w-auto justify-end">
+            <button
+              className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors duration-200 w-full sm:w-auto"
+              onClick={() => setShowAiModal(true)}
+              aria-label="Open AI Task Assistant"
+            >
+              AI Task Assistant
+            </button>
+
+            <button
+              onClick={() => {
+                setCreateSlotType("short");
+                setCreateSlotIndex(-1);
+                setShowForm(true);
+              }}
+              className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors duration-200 w-full sm:w-auto"
+              disabled={loadingAny}
+            >
+              Create Task
+            </button>
+          </div>
         </div>
 
         {/* Error/Loading/Success messages */}
@@ -895,6 +907,14 @@ const TasksPage = () => {
             />
           </div>
         </div>
+
+        <AiTaskModal
+          isOpen={showAiModal}
+          onClose={() => setShowAiModal(false)}
+          onCreated={() => {
+            // Optionally refresh templates panel or show toast
+          }}
+        />
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import characterRoutes from "./character.js";
 import inventoryRoutes from "./inventory.js";
 import userStats from "./userStats.js";
 import templateRoutes from "./template.js";
+import aiRoutes from "./ai.js";
 
 const router = express.Router();
 router.use("/users", userRoutes);
@@ -23,4 +24,5 @@ router.use("/character", characterRoutes);
 router.use("/inventory", inventoryRoutes);
 router.use("/userstats", userStats);
 router.use("/templates", templateRoutes);
+router.use("/ai", aiRoutes);
 export default router;
