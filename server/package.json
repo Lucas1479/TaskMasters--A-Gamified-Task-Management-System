@@ -5,7 +5,7 @@
   "description": "UoA COMPSCI 732 TaskMaster Project",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "server": "nodemon server.js",
     "debug": "nodemon --inspect server.js",
     "reset-cards": "node scripts/resetAllUserCards.js",
